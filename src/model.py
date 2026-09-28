@@ -6,10 +6,9 @@ from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
 
 NUM_CLASSES = 5  # 0=arka plan, 1=Sol, 2=Sag, 3=Tanimlanamayan, 4=Belirsiz
 
-
-def get_model(num_classes=NUM_CLASSES, pretrained=True):
+def get_model(num_classes=NUM_CLASSES, pretrained=True, min_size=800, max_size=1333):
     weights = MaskRCNN_ResNet50_FPN_Weights.DEFAULT if pretrained else None
-    model = maskrcnn_resnet50_fpn(weights=weights)
+    model = maskrcnn_resnet50_fpn(weights=weights, min_size=min_size, max_size=max_size)
 
     old_conv = model.backbone.body.conv1
     new_conv = nn.Conv2d(
